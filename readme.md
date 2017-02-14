@@ -51,10 +51,10 @@ export default {
 
 // plugin3
 export default {
-  name: "plugin2",
+  name: "plugin3",
 
   call: async (meido) => {
-    console.log('start plugin2')
+    console.log('start plugin3')
   }
 }
 ```
