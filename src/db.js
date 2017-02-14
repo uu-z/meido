@@ -6,12 +6,8 @@ const config = {
   port: 28015
 }
 
-const connectDb = () => new Promise((res, rej) => {
-  r.connect({host: config.host, port: config. port}, (err, conn) => {
-    if(err) {
-      rej(err)
-    }
-
+const connectDB = () => new Promise((res, rej) => {
+  r.connect({host: config.host, port: config. port}, async (err, conn) => {
     res(conn)
   })
 })
@@ -24,11 +20,21 @@ export default {
       .run(async (queue, next) => {
         await next()
 
-        let db = await connectDb()
-        if(db) {
-          meido.db = db
-          meido.log('debug', 'db start>>>>>')
-        }
+        let db
+        let retry = 5
+
+        let interval = setInterval(async() => {
+          db = await connectDB()
+          if(db) {
+            meido.db = db
+            meido.log('debug', 'db start>>>>>')
+            clearInterval(interval)
+          } else {
+            if(retry-- == 0) {
+              meido.log('debug', 'db start faild: try $rethinkdb start db')
+            }
+          }
+        }, 1e3)
       })
   }
 }

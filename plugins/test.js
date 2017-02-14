@@ -10,13 +10,13 @@ export default {
 
         meido.log('debug', 'test start')
 
-        meido.state.notify = {
-          test: 'db start',
-          message: 'db start',
-          onClick: () => {
-            exec(' open http://localhost:8080 ')
+          meido.state.notify = {
+            title: 'db',
+            message: 'db manager',
+            onClick: () => {
+              exec(' open http://localhost:8080 ')
+            }
           }
-        }
       })
   }
 }
