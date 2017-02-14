@@ -44,16 +44,17 @@ export default {
       if(isPluginMount === true) {
 
         meido.pluginLoadList.forEach(pluginName => {
+          
           const plugin = meido.plugins[pluginName]
 
           meido.Queue
             .run(async (queue, next) => {
 
-              plugin.start && await plugin.start(meido)
-
               plugin.observer && Object.keys(plugin.observer).forEach(key => {
                 meido.Message.observer(key, plugin.observer[key])
               })
+
+              plugin.start && plugin.start(meido)
               
             next()
           })

@@ -3,7 +3,7 @@
   "version": "2.3.3",
   "scripts": {
     "start": "babel-node app.js",
-    "dev": "nodemon --exec npm run babel-node --watch ./ -- src/index.js",
+    "dev": "nodemon --exec npm run babel-node --watch ./ -- app.js",
     "babel-node": "babel-node",
     "build": "rm -rf dist/* ; babel ./src --out-dir dist"
   },
@@ -15,6 +15,12 @@
   },
   "dependencies": {
     "bluebird": "^3.4.7",
-    "meidos": "^0.1.1"
+    "cheerio": "^0.22.0",
+    "meidos": "^0.1.1",
+    "node-notifier": "^5.0.2",
+    "rethinkdb": "^2.3.3",
+    "superagent": "^3.4.1",
+    "uuid": "^3.0.1",
+    "winston": "^2.3.1"
   }
 }
