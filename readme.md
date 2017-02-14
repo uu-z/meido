@@ -1,5 +1,6 @@
 # Examples of meidos
-[meidos]('https://github.com/aitseH/meidos')
+
+[meidos](https://github.com/aitseH/meidos)
 
 # usage
 
