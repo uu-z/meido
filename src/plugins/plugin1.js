@@ -1,6 +1,5 @@
 export default {
   name: "plugin1",
-  version: "0.0.1",
 
   start: async (meido) => {
     console.log(`start plugin1`)
@@ -18,13 +17,14 @@ export default {
         meido.state.plugin1 = 111
         meido.emit('plugin1', 222)
       })
+      .run(async() => {
+        setTimeout(() => {
+          meido.plugins["plugin2"] && meido.plugins["plugin2"].call(meido)
+        }, 1e3)
 
-    setTimeout(() => {
-      meido.plugins["plugin2"] && meido.plugins["plugin2"].call(meido)
-    }, 1e3)
-
-    setTimeout(() => {
-      meido.plugins["plugin2"] && meido.plugins["plugin3"].call(meido)      
-    }, 1e3)
-  },
+        setTimeout(() => {
+          meido.plugins["plugin2"] && meido.plugins["plugin3"].call(meido)      
+        }, 1e3)
+      })
+  }
 }
