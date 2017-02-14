@@ -1,6 +1,7 @@
-# Examples of medios 
+# Examples of meidos
+[meidos]('https://github.com/aitseH/meidos')
 
-# script
+# usage
 
 ```js
 //...
@@ -8,7 +9,7 @@
 //plugin1
 export default{
   name: 'plugin1',
-  
+
   start(meido) => {
     console.log(`start plugin1`)
 
@@ -19,7 +20,7 @@ export default{
       .observer('plugin1', val => {
         console.log(`observe: plugin1, ${val}`)
       })
-    
+
     meido.Queue
       .run(async() => {
         meido.state.plugin1 = 111
@@ -41,7 +42,6 @@ export default{
 // plugin2
 export default {
   name: "plugin2",
-  version: "0.0.1",
 
   call: async (meido) => {
     console.log('start plugin2')
@@ -51,7 +51,6 @@ export default {
 // plugin3
 export default {
   name: "plugin2",
-  version: "0.0.1",
 
   call: async (meido) => {
     console.log('start plugin2')
