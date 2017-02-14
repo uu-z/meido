@@ -1,0 +1,20 @@
+{
+  "name": "null",
+  "version": "2.3.3",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --exec npm run babel-node --watch ./ -- src/index.js",
+    "babel-node": "babel-node",
+    "build": "rm -rf dist/* ; babel ./src --out-dir dist"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "meidos": "^0.1.1"
+  }
+}
