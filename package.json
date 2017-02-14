@@ -2,7 +2,7 @@
   "name": "null",
   "version": "2.3.3",
   "scripts": {
-    "start": "node index.js",
+    "start": "babel-node app.js",
     "dev": "nodemon --exec npm run babel-node --watch ./ -- src/index.js",
     "babel-node": "babel-node",
     "build": "rm -rf dist/* ; babel ./src --out-dir dist"
