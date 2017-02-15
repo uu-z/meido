@@ -11,13 +11,20 @@ export default {
 
 
     meido
-      .observer('nofify', (data) => {
-        if(typeof data == "object") {
+      .observer('nofify', (val) => {
+        if(typeof val == "object") {
+          let data = {
+            title: 'title',
+            message: 'message',
+            wait: true,
+            onClick: () => {}
+          }
+          Object.assign(data, val)
         notifier
           .notify({
             title: data.title,
             message: data.message,
-            wait: data.wait ? data.wait : true, 
+            wait: true, 
           })
           .on('click', data.onClick)
       }
