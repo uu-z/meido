@@ -15,10 +15,5 @@ export default {
         exec(' open http://localhost:8080 ')
       }
     }
-
-    meido
-      .observer('newline', val => {
-        console.log(val)
-      })
   }
 }
