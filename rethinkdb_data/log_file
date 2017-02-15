@@ -149,3 +149,15 @@
 2017-02-14T23:55:37.306563000 0.419975s notice: Listening on http addresses: 127.0.0.1, ::1
 2017-02-14T23:55:37.306566000 0.419978s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
 2017-02-14T23:55:37.306569000 0.419981s notice: Server ready, "Vai_MacBook_Pro_local_xwu" 78587798-0a41-4318-b539-c8552eef2d98
+2017-02-15T19:53:11.375147000 0.054439s notice: Running rethinkdb 2.3.5 (CLANG 7.3.0 (clang-703.0.31))...
+2017-02-15T19:53:11.379319000 0.058608s notice: Running on Darwin 15.6.0 x86_64
+2017-02-15T19:53:11.379373000 0.058660s notice: Loading data from directory /Users/vai/fun/meido/rethinkdb_data
+2017-02-15T19:53:11.416786000 0.096074s info: Automatically using cache size of 562 MB
+2017-02-15T19:53:11.418244000 0.097531s notice: Listening for intracluster connections on port 29015
+2017-02-15T19:53:11.420594000 0.099881s notice: Listening for client driver connections on port 28015
+2017-02-15T19:53:11.420718000 0.100005s notice: Listening for administrative HTTP connections on port 8080
+2017-02-15T19:53:11.420721000 0.100008s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-02-15T19:53:11.420724000 0.100011s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-02-15T19:53:11.420725000 0.100012s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-02-15T19:53:11.420728000 0.100015s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-02-15T19:53:11.420732000 0.100018s notice: Server ready, "Vai_MacBook_Pro_local_xwu" 78587798-0a41-4318-b539-c8552eef2d98

@@ -1,16 +1,17 @@
 import Meido from './src/meido'
 
 import plugins from './src/plugins'
-import db from './src/db'
+// import db from './src/db'
+// import test from './src/test'
 
 const meido = new Meido({
-  components: [db, plugins]
+  logLevel: 'debug',
+  components: [plugins]
 })
 
 meido.Queue
   .set({
     concurrency: 4,
-    logLevel: 'debug'
   })
 
 

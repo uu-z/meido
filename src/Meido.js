@@ -20,15 +20,21 @@ class Meido {
       this.options.components.forEach(component => {
         this.Queue
           .run(async (queue, next) => {
-            component.start && await component.start(this)
 
             component.observer && Object.keys(component.observer).forEach(key => {
               this.Message.observer(key, component.observer[key])
             })
+
+            component.start && await component.start(this)
+
           next()
         })
       })
     }
+  }
+
+  set(obj) {
+    Object.assign(this.options, obj)
   }
   
   on(name, fn) {

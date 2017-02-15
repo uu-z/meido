@@ -3,7 +3,7 @@ import {checkPluginDir, getPlugins} from './utils'
 
 export default {
   name: 'plugins',
-  start: async (meido) => {
+  start: (meido) => {
     meido
       .on('queue:getPlugins', plugins => {
          plugins.forEach(plugin => {
@@ -44,28 +44,19 @@ export default {
       if(isPluginMount === true) {
 
         meido.pluginLoadList.forEach(pluginName => {
-          
           const plugin = meido.plugins[pluginName]
 
-          meido.Queue
-            .run(async (queue, next) => {
-
-              plugin.observer && Object.keys(plugin.observer).forEach(key => {
-                meido.Message.observer(key, plugin.observer[key])
-              })
-
-              plugin.start && plugin.start(meido)
-              
-            next()
-          })
-
-          meido.pluginLoadList = []
+          if(plugin.start) {
+            
+            plugin.start(meido)
+          }
         })
+        meido.pluginLoadList = []
       }
     })
 
   meido.Queue
-    .run(async(queue, next) => {
+    .run((queue, next) => {
       meido.plugins = {}
       meido.pluginLoadList = []
       meido.state.pluginPaths = config.pluginPaths
