@@ -1,6 +1,4 @@
 import notifier from 'node-notifier'
-import superagent from 'superagent'
-import cheerio from 'cheerio'
 import {exec} from 'child_process'
 
 export default {

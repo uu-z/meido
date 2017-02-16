@@ -5,7 +5,7 @@ export default {
   name: 'plugins',
   help: `
 
-    Usage: meido.plugins.test.help
+    Usage: plugins.test.help
 
   `,
   start: (meido) => {
@@ -47,7 +47,6 @@ export default {
     .observer('isPluginMount', isPluginMount => {
 
       if(isPluginMount === true) {
-
         meido.pluginLoadList.forEach(pluginName => {
           const plugin = meido.plugins[pluginName]
 
@@ -55,6 +54,17 @@ export default {
             
             plugin.start(meido)
           }
+
+          Object.keys(plugin).forEach(key => {
+            if(key !== "start" && key !== "name") {
+              if(typeof plugin[key] === 'function') {
+                meido.options.completions.push(`plugins.${plugin.name}.${key}()`)                
+              }else {
+                  meido.options.completions.push(`plugins.${plugin.name}.${key}`)
+                }
+            }
+          })
+
         })
         meido.pluginLoadList = []
       }

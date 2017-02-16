@@ -20,12 +20,20 @@ class Meido {
       this.options.components.forEach(component => {
         this.Queue
           .run(async (queue, next) => {
-            
             component.start && await component.start(this)
             
-            if (component.help) {
-              this[component.name]["help"] = component.help
-            }
+            this[component.name]["help"] = component.help
+            this[component.name]["name"] = component.name
+             
+            Object.keys(component).forEach(key => {
+              if(key !== "start" && key !== "name") {
+                if(typeof component[key] === 'function') {
+                  this.options.completions.push(`${component.name}.${key}()`)                
+                }else {
+                  this.options.completions.push(`${component.name}.${key}`)
+                }
+              }
+            })
 
           next()
         })

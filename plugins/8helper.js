@@ -9,11 +9,16 @@ export default {
 
       command:
 
-      help:                      'help',
-      plugins.help:              'plugins help',
+
+      help:                      'help'
+      plugins.help:              'plugins help'
+
 
       Run 'meido.[Command].help' for more information on a command.
     `
+    meido.quit=meido.q = () => {
+      process.exit(0)
+    }
 
     meido
       .observer('newline', val => {

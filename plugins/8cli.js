@@ -6,16 +6,20 @@ export default {
 
   start: (meido) => {
 
-    const rl = readline.createInterface({
-      input: process.stdin, 
-      output: process.stdout,
-      prompt: 'meido>'
-    })
-    rl.setPrompt('meido> ', 5)
-
     meido.log('debug', 'cli start>>>>>')
     meido
-      .on('cli:start', () => {      
+      .on('cli:start', () => {
+        const rl = readline.createInterface({
+          input: process.stdin, 
+          output: process.stdout,
+          prompt: 'meido>',
+          completer: (line) => {
+            var completions = meido.options.completions
+            var hits = completions.filter((c) => { return c.indexOf(line) === 0 })
+            return [hits.length ? hits : completions, line]
+          }
+        })
+        rl.setPrompt('meido> ', 5) 
         rl.on('line', line => {
           let newline = line.trim()
           try {
@@ -39,12 +43,3 @@ export default {
       })
   }
 }
-// function completer(line) {
-//   var completions = '.help .error .exit .quit .q'.split(' ')
-//   var hits = completions.filter((c) => {
-//     if(c.indexOf(line) === 0) {
-//       return c
-//     }
-//   })
-//   return [hits.length ? hits : completions, line]
-// }

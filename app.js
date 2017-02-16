@@ -4,7 +4,8 @@ import plugins from './src/plugins'
 
 const meido = new Meido({
   logLevel: 'info',
-  components: [plugins]
+  components: [plugins],
+  completions: ['quit()', 'help']
 })
 
 meido.Queue
