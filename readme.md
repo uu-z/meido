@@ -1,4 +1,4 @@
-# MEIDO -- Single file debugger
+# MEIDO -- Single / Multi file debugger
 
 
 # install
@@ -36,7 +36,14 @@ export default {
 ```
 
 ```bash
+// single file 
 $ meido {{ your-dir }}/example.js
+
+meido> :plugins.example.add 100 200 300 400
+1000
+
+// all file of dir
+$ meido {{ your-dir }}/
 
 meido> :plugins.example.add 100 200 300 400
 1000
