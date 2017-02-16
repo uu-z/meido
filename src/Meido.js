@@ -28,7 +28,7 @@ class Meido {
             Object.keys(component).forEach(key => {
               if(key !== "start" && key !== "name") {
                 if(typeof component[key] === 'function') {
-                  this.options.completions.push(`${component.name}.${key}()`)                
+                  this.options.completions.push(`:${component.name}.${key}`)                
                 }else {
                   this.options.completions.push(`${component.name}.${key}`)
                 }

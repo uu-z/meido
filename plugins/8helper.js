@@ -16,7 +16,7 @@ export default {
 
       Run 'meido.[Command].help' for more information on a command.
     `
-    meido.quit=meido.q = () => {
+    meido.q = () => {
       process.exit(0)
     }
 

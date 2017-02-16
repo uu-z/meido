@@ -21,20 +21,39 @@ export default {
         })
         rl.setPrompt('meido> ', 5) 
         rl.on('line', line => {
-          let newline = line.trim()
+          const newline = line.split(' ')
+          let [command, ...args] = newline
+          let commandType = 'object'
+
+          if(command.match(/:\w+/)) {
+            commandType = 'function'
+            command = command.replace(':', '')
+          } else {
+            commandType = 'object'
+          }
+
           try {
-            newline.length > 0 && new Function('meido', `
+            newline.length > 0 && new Function('meido', 'commandType', 'args', `
+
+            if(commandType == "function") {
               try {
-                console.log(${newline})
+                console.log(${command}(meido, ...args))
               } catch (err) {
-                  console.log(meido.${newline})
+                console.log(meido.${command}(meido, ...args))
               }
-            `)(meido)
+            } else if(commandType == "object") {
+              try {
+                console.log(${command})
+              } catch (err) {
+                console.log(meido.${command})
+              }
+            } 
+            `)(meido, commandType, args)
           } catch(err) {
             console.error(err.toString())
           }
 
-          meido.state.newline = newline
+          meido.state.newline = line
           rl.prompt()
         }).on('close', () => {
           meido.emit('cli:close')

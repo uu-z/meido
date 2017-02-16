@@ -15,7 +15,10 @@ export default {
     meido.log('debug', 'test start>>>>>')
     meido.emit('cli:start')
   },
-  hello: () => {
+  hello: (meido) => {
     return 'world'
+  },
+  add: (meido, ...args) => {
+    return args.reduce((a,b) => parseInt(a) + parseInt(b)) 
   }
 }

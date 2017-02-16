@@ -58,7 +58,7 @@ export default {
           Object.keys(plugin).forEach(key => {
             if(key !== "start" && key !== "name") {
               if(typeof plugin[key] === 'function') {
-                meido.options.completions.push(`plugins.${plugin.name}.${key}()`)                
+                meido.options.completions.push(`:plugins.${plugin.name}.${key}`)                
               }else {
                   meido.options.completions.push(`plugins.${plugin.name}.${key}`)
                 }
