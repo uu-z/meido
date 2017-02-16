@@ -22,6 +22,10 @@ class Meido {
           .run(async (queue, next) => {
             
             component.start && await component.start(this)
+            
+            if (component.help) {
+              this[component.name]["help"] = component.help
+            }
 
           next()
         })

@@ -3,6 +3,11 @@ import {checkPluginDir, getPlugins} from './utils'
 
 export default {
   name: 'plugins',
+  help: `
+
+    Usage: meido.plugins.test.help
+
+  `,
   start: (meido) => {
     meido
       .on('queue:getPlugins', plugins => {

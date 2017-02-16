@@ -11,7 +11,7 @@ export default {
 
 
     meido
-      .observer('nofify', (val) => {
+      .observer('notify', (val) => {
         if(typeof val == "object") {
           let data = {
             title: 'title',

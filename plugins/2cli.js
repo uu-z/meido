@@ -1,12 +1,16 @@
 import readline from 'readline'
-import {exec, execSync} from 'child_process'
+import {exec} from 'child_process'
 
 export default {
   name: "cli",
 
   start: (meido) => {
 
-    const rl = readline.createInterface(process.stdin, process.stdout)
+    const rl = readline.createInterface({
+      input: process.stdin, 
+      output: process.stdout,
+      prompt: 'meido>'
+    })
     rl.setPrompt('meido> ', 5)
 
     meido.log('debug', 'cli start>>>>>')
@@ -14,26 +18,20 @@ export default {
       .on('cli:start', () => {      
         rl.on('line', line => {
           let newline = line.trim()
-          
-          switch(newline) {
-            case 'good night': 
-              meido.state.nofify = {
-                title: 'good night 😊',
-                message: 'computer going to sleep'
-              }
-              let tenSecondAfter = execSync('date -v+10S +%Y%m%d%H%M').toString().replace(/^20/, '')
+          try {
+            newline.length > 0 && new Function('meido', `
               try {
-                execSync(`sudo shutdown -s ${tenSecondAfter}`)              
+                console.log(${newline})
               } catch (err) {
-                meido.state.nofify = {
-                  title: 'error',
-                  message: err
-                }
+                  console.log(meido.${newline})
               }
-            default :
-              meido.state.newline = newline
+            `)(meido)
+          } catch(err) {
+            console.error(err.toString())
           }
-        rl.prompt()
+
+          meido.state.newline = newline
+          rl.prompt()
         }).on('close', () => {
           meido.emit('cli:close')
         })
@@ -41,13 +39,12 @@ export default {
       })
   }
 }
-
-function completer(line) {
-  var completions = '.help .error .exit .quit .q'.split(' ')
-  var hits = completions.filter((c) => {
-    if(c.indexOf(line) === 0) {
-      return c
-    }
-  })
-  return [hits.length ? hits : completions, line]
-}
+// function completer(line) {
+//   var completions = '.help .error .exit .quit .q'.split(' ')
+//   var hits = completions.filter((c) => {
+//     if(c.indexOf(line) === 0) {
+//       return c
+//     }
+//   })
+//   return [hits.length ? hits : completions, line]
+// }

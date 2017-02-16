@@ -1,7 +1,7 @@
 import winston from 'winston'
 
 export default {
-  name: "loger",
+  name: "logger",
 
   start: (meido) => {
 
