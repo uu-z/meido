@@ -44,4 +44,4 @@ meido> :plugins.example.add 100 200 300 400
 
 
 ## demo
-![meido](./meido.gif)
+![meido](./demo.gif)
