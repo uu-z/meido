@@ -3,6 +3,7 @@
 [meidos](https://github.com/aitseH/meidos)
 
 # usage
+
 ```js
 
 export default {
@@ -21,6 +22,9 @@ export default {
   },
   hello: () => {
     return 'world'
+  },
+  add: (meido, ...args) => {
+    return args.reduce((a,b) => parseInt(a) + parseInt(b)) 
   }
 }
 
