@@ -19,10 +19,5 @@ export default {
     meido.q = () => {
       process.exit(0)
     }
-
-    meido
-      .observer('newline', val => {
-        
-      })
   }
 }
