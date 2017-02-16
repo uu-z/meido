@@ -2,7 +2,7 @@ export default {
   name: "helper",
 
   start: (meido) => {
-    meido.log('debug', 'web start>>>>')
+    meido.log('debug', 'helper start>>>>')
 
     meido.help = `
       Meido

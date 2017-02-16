@@ -1,5 +1,5 @@
 import config from './config'
-import {checkPluginDir, getPlugins} from './utils'
+import {getPlugins, getFile} from './utils'
 
 export default {
   name: 'plugins',
@@ -15,7 +15,7 @@ export default {
           if(!plugin.name) {
             throw new Error(`plugins must have name : ${plugin} `)
           }
-
+          
           meido.pluginLoadList.push(plugin.name)
 
           meido.plugins[plugin.name] = plugin
@@ -40,9 +40,11 @@ export default {
             })
           }
         })
-    .observer('pluginPaths', pluginPaths => {
-      meido.Queue
-        .run(getPlugins(pluginPaths))
+    .observer('pluginPaths', async pluginPaths => {
+
+      let plugins = await getFile(pluginPaths)
+
+      meido.emit('queue:getPlugins', plugins)
     })
     .observer('isPluginMount', isPluginMount => {
 
@@ -71,6 +73,7 @@ export default {
     })
 
   meido.Queue
+    .set({concurrency: 4})
     .run((queue, next) => {
       meido.plugins = {}
       meido.pluginLoadList = []

@@ -31,7 +31,7 @@ export default {
           } else {
             commandType = 'object'
           }
-
+          
           try {
             newline.length > 0 && new Function('meido', 'commandType', 'args', `
 
@@ -58,7 +58,6 @@ export default {
         }).on('close', () => {
           meido.emit('cli:close')
         })
-        rl.prompt()
       })
   }
 }

@@ -1,31 +1,23 @@
 import bluebird from 'bluebird'
 import config from './config'
-const fs = bluebird.promisifyAll(require('fs'))
+import fs from 'fs'
+// const fs = bluebird.promisifyAll(require('fs'))
 
-export async function getFile(pluginPath){
-
+export async function getFile(pluginPaths){
+  
   let files = []
-  const dir = await fs.readdirAsync(pluginPath)
+  pluginPaths.forEach(pluginPath => {
+    const dir = fs.readdirSync(pluginPath)
 
-  if(dir) {
-    dir.forEach(async file => {
-      const isJs = /\.js/
-      if(isJs.test(file)){
-        files.push(require(`${pluginPath}/${file}`).default)
-      }
-    })
-  }
-
+    if(dir) {
+      dir.forEach(file => {
+        const isJs = /\.js/
+        if(isJs.test(file)){
+          files.push(require(`${pluginPath}/${file}`).default)
+        }
+      })
+    }
+  })
+  
   return files
-}
-
-
-export function getPlugins (pluginPath = config.pluginPath) {
-
-  return async (queue, next) => {
-    let plugins = await getFile(pluginPath)
-
-    queue.Event.emit('queue:getPlugins', plugins)
-    next()
-  }
 }

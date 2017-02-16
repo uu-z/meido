@@ -1,15 +1,21 @@
 import {EventEmitter} from 'events'
-
+import plugins from './plugins'
 import { Queue, Message, Observer } from 'meidos'
 
-class Meido {
+const baseOptions = {
+  logLevel: 'info',
+  components: [plugins],
+  completions: [':q', 'help']
+}
+
+export default class Meido {
   constructor(options) {
     this.Event = new EventEmitter()
     this.Observer = new Observer(this.Event)
     this.Queue = new Queue(this.Event)
     this.Message = new Message(this.Event)
 
-    this.options = options
+    this.options = Object.assign(baseOptions, options)
     this.state = {}
     this.init()    
   }
@@ -61,5 +67,3 @@ class Meido {
   }
 }
 
-
-export default Meido

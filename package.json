@@ -1,6 +1,7 @@
 {
   "name": "null",
   "version": "2.3.3",
+  "bin": "./bin/meido",
   "scripts": {
     "start": "babel-node app.js",
     "dev": "nodemon --exec npm run babel-node --watch ./ -- app.js",
