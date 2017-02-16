@@ -1,33 +1,47 @@
-# Examples of meidos
+# MEIDO -- Single file debugger
 
-[meidos](https://github.com/aitseH/meidos)
+
+# install
+
+```bash
+
+$ npm install meido babel-cli  -g
+
+```
 
 # usage
 
 ```js
+// {{ your-dir }}/example.js
 
 export default {
-  name: "test",
+  name: "example",
   help:`
-    Used to test
+    Used to example
 
     Function:
 
-      plugins.test.hello()  Test      
+      plugins.example.hello()  example      
 
     `,
 
   start: (meido) => {
-    meido.emit('cli:start')
-  },
-  hello: () => {
-    return 'world'
   },
   add: (meido, ...args) => {
-    return args.reduce((a,b) => parseInt(a) + parseInt(b)) 
+    return args.reduce((a,b) => parseInt(a) + parseInt(b))
   }
 }
 
+
 ```
 
+```bash
+$ meido {{ your-dir }}/example.js
+
+meido> :plugins.example.add 100 200 300 400
+1000
+```
+
+
+## demo
 ![meido](./meido.gif)

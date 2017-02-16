@@ -19,6 +19,8 @@ export default {
             return [hits.length ? hits : completions, line]
           }
         })
+        rl.prompt()
+
         rl.setPrompt('meido> ', 5) 
         rl.on('line', line => {
           const newline = line.split(' ')
@@ -31,7 +33,7 @@ export default {
           } else {
             commandType = 'object'
           }
-          
+
           try {
             newline.length > 0 && new Function('meido', 'commandType', 'args', `
 
@@ -52,9 +54,8 @@ export default {
           } catch(err) {
             console.error(err.toString())
           }
-
-          meido.state.newline = line
           rl.prompt()
+          meido.state.newline = line
         }).on('close', () => {
           meido.emit('cli:close')
         })
