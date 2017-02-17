@@ -13,18 +13,25 @@ $ npm install meido babel-cli  -g
 
 ## usage
 
-```bash
+```js
+
 // load single file:
+
 $ meido {{ your-dir }}/example.js
+
 meido> :js.example.add 100 200 300 400
-1000
+
+> 1000
 
 // load all the files in the dir:
+
 $ meido {{ your-dir }}
 
 
 // also can such:
+
 $ meido
+
 meido> :load {{ you-dir }}
 
 ```
@@ -74,4 +81,4 @@ help // print help
 
 
 ## demo
-![meido](./demo.gif)
+![meido](./meido.gif)
