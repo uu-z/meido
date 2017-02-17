@@ -5,7 +5,7 @@ import { Queue, Message, Observer } from 'meidos'
 const baseOptions = {
   logLevel: 'info',
   components: [plugins],
-  completions: [':q', 'help']
+  completions: []
 }
 
 export default class Meido {
@@ -35,6 +35,8 @@ export default class Meido {
               if(key !== "start" && key !== "name") {
                 if(typeof component[key] === 'function') {
                   this.options.completions.push(`:${component.name}.${key}`)                
+                } else if(key === 'completions'){
+                  meido.options.completions = meido.options.completions.concat(component[key])
                 }else {
                   this.options.completions.push(`${component.name}.${key}`)
                 }

@@ -1,7 +1,7 @@
-# MEIDO -- Single / Multi file debugger
+## MEIDO -- Single / Multi file debugger
 
 
-# install
+## install
 
 ```bash
 
@@ -9,7 +9,7 @@ $ npm install meido babel-cli  -g
 
 ```
 
-# usage
+## usage
 
 ```js
 // {{ your-dir }}/example.js
@@ -39,17 +39,30 @@ export default {
 ```
 
 ```bash
-// load single file 
+// load single file:
 $ meido {{ your-dir }}/example.js
 
 meido> :plugins.example.add 100 200 300 400
 1000
 
-// load all of the files 
-$ meido {{ your-dir }}/
+// load all the files in the dir:
+$ meido {{ your-dir }}
 
-meido> :plugins.example.add 100 200 300 400
-1000
+
+// also can such:
+$ meido
+meido> :load {{ you-dir }}
+
+```
+
+
+## api
+```js
+help // print help
+
+:q  // quit
+:load {{ ...args }}  //load dir/file
+
 ```
 
 

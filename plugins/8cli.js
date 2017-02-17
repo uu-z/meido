@@ -9,7 +9,7 @@ export default {
     meido.log('debug', 'cli start>>>>>')
     meido
       .on('cli:start', () => {
-        const rl = readline.createInterface({
+        let rl = readline.createInterface({
           input: process.stdin, 
           output: process.stdout,
           prompt: 'meido>',
@@ -56,6 +56,8 @@ export default {
           }
           rl.prompt()
           meido.state.newline = line
+          meido.cli = rl
+
         }).on('close', () => {
           meido.emit('cli:close')
         })

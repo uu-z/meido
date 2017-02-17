@@ -5,6 +5,8 @@ export default {
   start: (meido) => {
     meido.log('debug', 'test start>>>>>')
     meido.emit('start')
-    meido.emit('cli:start')
-  },
+    if(!(meido.cli)) {
+      meido.emit('cli:start')
+    }
+  }
 }

@@ -1,5 +1,6 @@
 export default {
   name: "helper",
+  completions: [':q', 'help', ':load'],
 
   start: (meido) => {
     meido.log('debug', 'helper start>>>>')
@@ -7,11 +8,17 @@ export default {
     meido.help = `
       Meido
 
-      command:
+
+      Usage:
+
+        help                      'help'
+        :command                  'run command'
 
 
-      help                      'help'
-      :command                  'run command'
+      Command:
+      
+        :q                        'quit'
+        :load [...args]           'load file/dir'
 
 
       Run 'meido.[Command].help' for more information on a command.
@@ -19,8 +26,8 @@ export default {
     meido.q = () => {
       process.exit(0)
     },
-    meido.reload = (meido, ...args) => {
-      console.log(meido.pluginList)
+    meido.load = (meido, ...args) => {
+      meido.state.pluginPaths = args
     }
   }
 }
