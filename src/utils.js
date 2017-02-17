@@ -3,10 +3,6 @@ import path from 'path'
 import rl from 'readline'
 import fs from 'fs'
 
-const isJs = /\.js$/
-const isJsx = /\.jsx$/
-const isVue = /\.vue$/
-
 export async function getFile(pluginPaths){
 
   let files = {
@@ -15,23 +11,45 @@ export async function getFile(pluginPaths){
     vue: []
   }
 
-  crawlPaths(pluginPaths, {
-    onFile: (file) => {
-      if(isJs.test(file)) {
-        files.js.push(require(file).default)
-      } else if(isJsx.test(file)) {
-        files.jsx.push(require(file).default)
-      } else if(isVue.test(file)) {
-        files.vue.push(require(file).default)
-      }
-    },
-    onDir: (files, _path, depth) => {
-      if(!(files.includes(".babelrc")) && !(config.pluginPaths.includes(_path)) && depth < 2) {
-        copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
-      }
-    },
-  })
+  if(!(Array.isArray(pluginPaths))) {
+    crawlPath(pluginPaths, {
+      onFile: (file) => {
+        files = filterFile(files, file)
+      },
+      onDir: (files, _path, depth) => {
+        if(!(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth < 2) {
+          copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
+        }
+      },
+    })
+  } else {
+    crawlPaths(pluginPaths, {
+      onFile: (file) => {
+        files = filterFile(files, file)
+      },
+      onDir: (files, _path, depth) => {
+        if(!(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth < 2) {
+          copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
+        }
+      },
+    })
+  }
 
+  return files
+}
+
+const isJs = /\.js$/
+const isJsx = /\.jsx$/
+const isVue = /\.vue$/
+
+export function filterFile (files, file) {
+  if(isJs.test(file)) {
+    files.js.push(require(file).default)
+  } else if(isJsx.test(file)) {
+    files.jsx.push(require(file).default)
+  } else if(isVue.test(file)) {
+    files.vue.push(require(file).default)
+  }
   return files
 }
 
@@ -63,18 +81,18 @@ export function crawlPath (_path, options = {}, depth = 0) {
         }
       }
     }
-  } else if(isFile(path)) {
-    options.onFile && options.onFile(file)
+  } else if(isFile(_path)) {
+    options.onFile && options.onFile(_path)
   }
-  }catch (err) {
+}catch (err) {
     console.log(err)
   }
 }
 
-export function isDir(path) {
-  return fs.lstatSync(path).isDirectory()
+export function isDir(_path) {
+  return fs.lstatSync(_path).isDirectory()
 }
 
-export function isFile(path) {
-  return fs.lstatSync(path).isFile()
+export function isFile(_path) {
+  return fs.lstatSync( _path).isFile()
 }

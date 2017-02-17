@@ -1,5 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import Vue from 'vue'
 
 export default {
   name: "test",

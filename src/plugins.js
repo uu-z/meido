@@ -1,5 +1,19 @@
-import config from './config'
-import {getFile} from './utils'
+import path from 'path'
+import fs from 'fs'
+import {getFile, copyFile} from './utils'
+const rootDir = path.join(process.env.HOME, "./.meido/plugins")
+const rootDirFile = fs.readdirSync(rootDir)
+
+
+if(!(rootDirFile.includes("config.json"))) {
+  copyFile(path.join(__dirname, './config.json'), `${rootDir}/config.json`)
+}
+
+const config = require(`${rootDir}/config`)
+
+const pluginPaths = Object.assign(config.pluginPaths, {
+  base: path.join(__dirname, config.pluginPaths.base)
+})
 
 export default {
   name: 'plugins',
@@ -24,8 +38,7 @@ export default {
 
           meido.plugins.add(key)
         }
-
-        // meido.plugins.set(key, meido[key])
+        
         meido.state.isPluginMount = true
       })
       .on('message:observer', (name, fn) => {
@@ -49,9 +62,9 @@ export default {
 
       let plugins = await getFile(pluginPaths)
 
-      // if(!(meido.plugins.has(pluginPaths))){
-      //   meido.plugins.add(...pluginPaths)
-      // }
+      if(!(meido._pluginPaths.includes(pluginPaths))){
+        meido._pluginPaths = [...meido._pluginPaths, ...pluginPaths]
+      }
 
       meido.emit('queue:getFile', plugins)
     })
@@ -88,8 +101,10 @@ export default {
   meido.Queue
     .set({concurrency: 4})
     .run((queue, next) => {
+      meido._rootDir = rootDir
       meido.plugins = new Set()
-      meido.state.pluginPaths = config.pluginPaths
+      meido._pluginPaths = []
+      meido.state.pluginPaths = Object.values(pluginPaths)
       next()
     })
   }
