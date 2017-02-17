@@ -14,12 +14,6 @@ const connectDB = () => new Promise((res, rej) => {
 
 export default {
   name: "rethinkdb",
-  help:`
-    Used to test
-
-    Function:
-
-    `,
 
   start: (meido) => {
     let db

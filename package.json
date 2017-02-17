@@ -1,6 +1,6 @@
 {
   "name": "meido",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "bin": "bin/meido.js",
   "scripts": {
     "start": "babel-node app.js",
@@ -12,9 +12,12 @@
     "babel-cli": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.1.8",
-    "nodemon": "^1.11.0",
     "node-notifier": "^5.0.2",
-    "rethinkdb": "^2.3.3"
+    "nodemon": "^1.11.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "rethinkdb": "^2.3.3",
+    "vue": "^2.1.10"
   },
   "dependencies": {
     "meidos": "^0.1.1",

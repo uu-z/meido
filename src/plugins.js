@@ -1,39 +1,31 @@
 import config from './config'
-import {getPlugins, getFile} from './utils'
+import {getFile} from './utils'
 
 export default {
   name: 'plugins',
-  help: `
-
-    Usage: 
-    
-      plugins.[Command].help
-
-  `,
   start: (meido) => {
     meido
-      .on('queue:getPlugins', plugins => {
-        for(let plugin of plugins) {
-          if(!plugin.name) {
-            throw new Error(`plugins must have name : ${plugin} `)
-          }
-          
-          meido.pluginLoadList.add(plugin.name)
+      .on('queue:getFile', plugins => {
 
-          // meido.plugins[plugin.name] = plugin
-          meido.plugins.set(plugin.name, plugin)
+        for (let key of Object.keys(plugins)) {
+
+          meido[key] = meido[key] ? meido[key] : {}
+          let arr = plugins[key]
+
+          if(arr.length > 0) {
+            for(let plugin of arr) {
+              if(!plugin.name) {
+                throw new Error(`plugins must have name : ${plugin} `)
+              }
+
+              meido[key][plugin.name] = plugin
+            }
+          }
+
+          meido.plugins.add(key)
         }
 
-        //  plugins.forEach(plugin => {
-        //   if(!plugin.name) {
-        //     throw new Error(`plugins must have name : ${plugin} `)
-        //   }
-          
-        //   meido.pluginLoadList.add(plugin.name)
-
-        //   meido.plugins[plugin.name] = plugin
-        // })
-
+        // meido.plugins.set(key, meido[key])
         meido.state.isPluginMount = true
       })
       .on('message:observer', (name, fn) => {
@@ -57,65 +49,46 @@ export default {
 
       let plugins = await getFile(pluginPaths)
 
-      if(!(meido.pluginPathList.has(pluginPaths))){
-        meido.pluginPathList.add(...pluginPaths)
-      }
+      // if(!(meido.plugins.has(pluginPaths))){
+      //   meido.plugins.add(...pluginPaths)
+      // }
 
-      meido.emit('queue:getPlugins', plugins)
+      meido.emit('queue:getFile', plugins)
     })
     .observer('isPluginMount', isPluginMount => {
 
       if(isPluginMount === true) {
-        for(let pluginName of meido.pluginLoadList) {
-          // const plugin = meido.plugins[pluginName]
-          const plugin = meido.plugins.get(pluginName)
+        for(let prefix of meido.plugins) {
 
-          plugin.start && plugin.start(meido)
+          let plugins = meido[prefix]
 
-          Object.keys(plugin).forEach(key => {
+          for(let pluginName of Object.keys(plugins)) {
+            const plugin = plugins[pluginName]
 
-            if(key !== "start" && key !== "name") {
-              if(typeof plugin[key] === 'function') {
-                meido.options.completions.push(`:plugins.${plugin.name}.${key}`)              
-              } else if(key === 'completions'){
-                meido.options.completions = meido.options.completions.concat(plugin[key])
+            plugin.start && plugin.start(meido)
+
+            Object.keys(plugin).forEach(key => {
+
+              if(key !== "start" && key !== "name") {
+                if(typeof plugin[key] === 'function') {
+                  meido.options.completions.push(`:${prefix}.${plugin.name}.${key}`)              
+                } else if(key === 'completions'){
+                  meido.options.completions = meido.options.completions.concat(plugin[key])
+                }
+                else {
+                  meido.options.completions.push(`${prefix}.${plugin.name}.${key}`)
+                }
               }
-              else {
-                meido.options.completions.push(`plugins.${plugin.name}.${key}`)
-              }
-            }
-          })
+            })
+          }
         }
-
-        // meido.pluginLoadList.forEach(pluginName => {
-        //   const plugin = meido.plugins[pluginName]
-
-        //   if(plugin.start) {
-            
-        //     plugin.start(meido)
-        //   }
-
-        //   Object.keys(plugin).forEach(key => {
-        //     if(key !== "start" && key !== "name") {
-        //       if(typeof plugin[key] === 'function') {
-        //         meido.options.completions.push(`:plugins.${plugin.name}.${key}`)                
-        //       }else {
-        //           meido.options.completions.push(`plugins.${plugin.name}.${key}`)
-        //         }
-        //     }
-        //   })
-
-        // })
-
       }
     })
 
   meido.Queue
     .set({concurrency: 4})
     .run((queue, next) => {
-      meido.plugins = new Map()
-      meido.pluginLoadList = new Set()
-      meido.pluginPathList = new Set()
+      meido.plugins = new Set()
       meido.state.pluginPaths = config.pluginPaths
       next()
     })

@@ -1,5 +1,4 @@
 import readline from 'readline'
-import {exec} from 'child_process'
 
 export default {
   name: "cli",

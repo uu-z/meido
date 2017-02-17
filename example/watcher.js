@@ -3,13 +3,7 @@ import {exec} from 'child_process'
 
 export default {
   name: "watcher",
-  help:`
-    Used to test
-
-    Function:
-
-    `,
-
+  
   start: (meido) => {
     meido.log("debug", 'watcher start>>>>>')
 
