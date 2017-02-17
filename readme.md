@@ -27,6 +27,9 @@ export default {
 
   start: (meido) => {
   },
+  hello: () => {
+    return 'world'
+  }
   add: (meido, ...args) => {
     return args.reduce((a,b) => parseInt(a) + parseInt(b))
   }
@@ -36,13 +39,13 @@ export default {
 ```
 
 ```bash
-// single file 
+// load single file 
 $ meido {{ your-dir }}/example.js
 
 meido> :plugins.example.add 100 200 300 400
 1000
 
-// all file of dir
+// load all of the files 
 $ meido {{ your-dir }}/
 
 meido> :plugins.example.add 100 200 300 400

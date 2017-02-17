@@ -16,7 +16,9 @@ export default {
             throw new Error(`plugins must have name : ${plugin} `)
           }
           
-          meido.pluginLoadList.push(plugin.name)
+          if(!(meido.pluginLoadList.includes(plugins.name))){
+            meido.pluginLoadList.push(plugin.name)
+          }
 
           meido.plugins[plugin.name] = plugin
         })
@@ -68,7 +70,7 @@ export default {
           })
 
         })
-        meido.pluginLoadList = []
+
       }
     })
 
