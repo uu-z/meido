@@ -12,14 +12,15 @@ export default {
 
     `,
 
-  start: (meido) => {
+  start() {
+
   },
 
   foo: "bar",
-  hello: () => {
+  hello() {
     return 'world'
   },
-  add: (meido, ...args) => {
+  add(...args) {
     return args.reduce((a,b) => parseInt(a) + parseInt(b))
   }
 }

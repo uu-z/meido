@@ -3,10 +3,10 @@ import Vue from 'vue'
 export default {
   name: "test",
 
-  start: (meido) => {
+  start() {
 
   },
-  hello: () => {
+  hello() {
     return 'hello vue'
   }
 }

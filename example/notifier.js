@@ -3,11 +3,11 @@ import notifier from 'node-notifier'
 export default {
   name: "notifier",
   
-  start: (meido) => {
-    meido.log("debug", 'notifier start>>>>>')
+  start() {
+    this.log("debug", 'notifier start>>>>>')
 
 
-    meido
+    this
       .observer('notify', (val) => {
         if(typeof val == "object") {
           let data = {
@@ -28,8 +28,8 @@ export default {
       }
     })
   },
-  notify: (meido, ...args) => {
-    meido.state.notify = {
+  notify(...args) {
+    this.state.notify = {
       title: args[0],
       message: args[1]
     }

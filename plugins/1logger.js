@@ -3,10 +3,9 @@ import winston from 'winston'
 export default {
   name: "logger",
 
-  start: (meido) => {
-
-    meido.log = winston.log
-    winston.level = meido.options.logLevel
-    meido.log('debug', 'log start>>>>')
+  start() {
+    this.log = winston.log
+    winston.level = this.options.logLevel
+    this.log('debug', 'log start>>>>')
   }
 }

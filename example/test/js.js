@@ -1,10 +1,10 @@
 export default {
   name: "test",
 
-  start: (meido) => {
+  start() {
     
   },
-  hello: () => {
+  hello() {
     return 'hello js'
   }
 }

@@ -17,7 +17,10 @@ const pluginPaths = Object.assign(config.pluginPaths, {
 
 export default {
   name: 'plugins',
-  start: (meido) => {
+  start() {
+
+    let meido = this
+    
     meido
       .on('queue:getFile', plugins => {
 
@@ -78,7 +81,7 @@ export default {
           for(let pluginName of Object.keys(plugins)) {
             const plugin = plugins[pluginName]
 
-            plugin.start && plugin.start(meido)
+            plugin.start && plugin.start.call(meido)
 
             Object.keys(plugin).forEach(key => {
 

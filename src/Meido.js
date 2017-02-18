@@ -26,7 +26,8 @@ export default class Meido {
       this.options.components.forEach(component => {
         this.Queue
           .run(async (queue, next) => {
-            component.start && await component.start(this)
+
+            component.start && await component.start.call(this)
             
             // this[component.name]["help"] = component.help
             // this[component.name]["name"] = component.name

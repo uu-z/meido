@@ -3,7 +3,8 @@ import readline from 'readline'
 export default {
   name: "cli",
 
-  start: (meido) => {
+  start() {
+    let meido = this
 
     meido.log('debug', 'cli start>>>>>')
     meido
@@ -11,7 +12,7 @@ export default {
         let rl = readline.createInterface({
           input: process.stdin, 
           output: process.stdout,
-          prompt: 'meido>',
+          prompt: 'meido> ',
           completer: (line) => {
             var completions = meido.options.completions
             var hits = completions.filter((c) => { return c.indexOf(line) === 0 })
@@ -20,7 +21,6 @@ export default {
         })
         rl.prompt()
 
-        rl.setPrompt('meido> ', 5) 
         rl.on('line', line => {
           const newline = line.split(' ')
           let [command, ...args] = newline
@@ -33,14 +33,18 @@ export default {
             commandType = 'object'
           }
 
+
           try {
             newline.length > 0 && new Function('meido', 'commandType', 'args', `
-
             if(commandType == "function") {
               try {
-                console.log(${command}(meido, ...args))
+                console.log(${command}(...args, meido))
               } catch (err) {
-                console.log(meido.${command}(meido, ...args))
+
+                console.log(meido.${command}.call(meido, ...args))
+                
+                // Reflect.apply(meido.${command}, meido, args)
+                // console.log(meido.${command}.apply(meido, args))
               }
             } else if(commandType == "object") {
               try {

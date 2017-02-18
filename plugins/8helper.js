@@ -8,7 +8,10 @@ export default {
   name: "helper",
   completions: [':q', 'help', ':load', ':example', ":ter", ":setPath", ":getPaths", ":removePath"],
 
-  start: (meido) => {
+  start() {
+
+    let meido = this
+
     meido.log('debug', 'helper start>>>>')
 
     meido.help = `
@@ -37,12 +40,12 @@ export default {
     meido.q = () => {
       process.exit(0)
     },
-    meido.ter = meido.terminal = (meido, ...args) => {
+    meido.ter = meido.terminal = (...args) => {
       const [command] = args
 
       exec(`open -a /Applications/Utilities/Terminal.app /usr/local/bin/${command}`)
     },
-    meido.load = (meido, ...args) => {
+    meido.load = (...args) => {
       meido.state.pluginPaths = args
     },
     meido.reload = () => {
@@ -51,7 +54,7 @@ export default {
     meido.example = () => {
       meido.state.pluginPaths = examplePath
     },
-    meido.setPath = (meido, ...args) => {
+    meido.setPath = (...args) => {
       const [name, path] = args
       if(!name) {
         return 'error: no name, you shoud input: :setPath [name] [path]'
@@ -67,13 +70,13 @@ export default {
         fs.writeFileSync(configPath, JSON.stringify(read), 'utf8')
       }
     },
-    meido.getPaths = (meido, ...args) => {
+    meido.getPaths = (...args) => {
       let configPath = `${meido._rootDir}/config.json`
 
       let read = JSON.parse(fs.readFileSync(configPath, 'utf8'))
       return read
     },
-    meido.removePath = (meido, ...args) => {
+    meido.removePath = (...args) => {
       let configPath = `${meido._rootDir}/config.json`
 
       let read = JSON.parse(fs.readFileSync(configPath, 'utf8'))
