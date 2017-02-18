@@ -1,22 +1,15 @@
 export default {
   name: "example",
   help:`
-    Used to example
-
-    Function:
-
-      js.example.foo             example
+    Command:
 
       :js.example.hello          example
-      :js.example.add [...args]  example   
 
-    `,
-
-  start() {},
+  `,
+  start() {
+    
+  },
   hello() {
     return 'world'
-  },
-  add(...args) {
-    return args.reduce((a,b) => parseInt(a) + parseInt(b))
   }
 }

@@ -25,6 +25,8 @@ $ meido
 
 :js.example.add 100 200 300 400 500
 
+:js.functional.add :js.functional.random 5
+
 :ter meido // open a new terminal with meido
 
 help // get help 
