@@ -21,27 +21,29 @@
 
 export default {
   name: "functional",
+  completions: [":add", ":random"],
   start() {
-  },
-  random() {
-    return Math.random()
-  },
-  add(...args){
-    return args.reduceRight((a,b) => {
-      if(typeof a == 'function') {
-        if(typeof b === 'function') {
-          return a() + b()
+
+    this.random = () => {
+      return Math.random()
+    }
+    this.add = (...args) => {
+      return args.reduceRight((a,b) => {
+        if(typeof a == 'function') {
+          if(typeof b === 'function') {
+            return a() + b()
+          }
+          return a() + parseInt(b)
+        } else if(typeof b === 'function'){
+          if(typeof a === 'function') {
+            return a() + b()
+          }
+          return b() + parseInt(a)
+        }else {
+          return parseInt(a) + parseInt(b)
         }
-        return a() + parseInt(b)
-      } else if(typeof b === 'function'){
-        if(typeof a === 'function') {
-          return a() + b()
-        }
-        return b() + parseInt(a)
-      }else {
-        return parseInt(a) + parseInt(b)
-      }
-    })
+      })
+    }
   }
   // maybe(x, ...args){
   //   let ma = Maybe.just(x)

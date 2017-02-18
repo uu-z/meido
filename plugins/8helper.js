@@ -53,8 +53,6 @@ export default {
     }
     meido.example = () => {
       meido.state.pluginPaths = examplePath
-      meido.cli.close()
-      meido.emit('cli:start')
     },
     meido.setPath = (name, path) => {
       if(!name || !path) {
