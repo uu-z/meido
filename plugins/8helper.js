@@ -6,7 +6,7 @@ const examplePath = [path.join(__dirname, "../example")]
 
 export default {
   name: "helper",
-  completions: [':q', 'help', ':load', ':example', ":ter", ":setPath", ":getPaths", ":removePath"],
+  completions: [':q', 'help', ':load', ':example', ":ter", ":setPath", ":getConfig", ":removePath"],
 
   start() {
 
@@ -31,8 +31,8 @@ export default {
         :example                     // load example file
         :ter [bin-name]             // open termial
         :setPath [name] [path]     // set the path of the permanent
-        :getPaths                 // list the path of the all
-        :removePath [name]       // remove the path 
+        :getConfig                 // list the path of the all
+        :removeConfig [name]       // remove the path 
 
 
       Run 'meido.[Command].help' for more information on a command.
@@ -54,37 +54,50 @@ export default {
     meido.example = () => {
       meido.state.pluginPaths = examplePath
     },
-    meido.setPath = (...args) => {
-      const [name, path] = args
-      if(!name) {
-        return 'error: no name, you shoud input: :setPath [name] [path]'
-      } else if(!path) {
-        return "error: no path, you shoud input: :setPath [name] [path]"
+    meido.setPath = (name, path) => {
+      if(!name || !path) {
+        return 'error: Parameter error, you shoud input: :setPath [name] [path]'
       }
-      
-      let configPath = `${meido._rootDir}/config.json`
 
-      let read = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+      return meido.setConfig('pluginPaths', name, path)
+    },
+    meido.removePath = (name) => {
+      if(!name) {
+        return 'error: Parameter error, you shoud input: :removePath [name]'
+      }
+
+      return meido.removeConfig('pluginPaths', name)
+    }
+    meido.setConfig = (field, key, value) => {
+      if(!field || !key || !value) {
+        return 'error: Parameter error, expect: [field], [key], [value]'
+      }
+
+      let read = JSON.parse(fs.readFileSync(meido._configPath, 'utf8'))
       if(read) {
-        read.pluginPaths[name] = path
-        fs.writeFileSync(configPath, JSON.stringify(read), 'utf8')
+        read[field][key] = value
+        fs.writeFileSync(meido._configPath, JSON.stringify(read), 'utf8')
+        return meido.getConfig()
       }
     },
-    meido.getPaths = (...args) => {
-      let configPath = `${meido._rootDir}/config.json`
+    meido.getConfig = () => {
 
-      let read = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+      let read = JSON.parse(fs.readFileSync(meido._configPath, 'utf8'))
       return read
     },
-    meido.removePath = (...args) => {
-      let configPath = `${meido._rootDir}/config.json`
+    meido.removeConfig = (field, key) => {
+      if(!field || !key) {
+        return 'error: Parameter error, expect: [field], [key]'
+      }
 
-      let read = JSON.parse(fs.readFileSync(configPath, 'utf8'))
+      let read = JSON.parse(fs.readFileSync(meido._configPath, 'utf8'))
+
       if(read) {
-        for (let key of args) {
-          delete read.pluginPaths[key]
+        if(Object.prototype.toString.call(read[field]) == '[object Object]') {
+          delete read[field][key]
         }
-        fs.writeFileSync(configPath, JSON.stringify(read), 'utf8')
+        fs.writeFileSync(meido._configPath, JSON.stringify(read), 'utf8')
+        return meido.getConfig()
       }
     }
   }

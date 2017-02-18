@@ -96,10 +96,10 @@ export default {
 ## api
 
 ```js
-help                              // print help
+help                             // print help
 
-:q                              // quit
-:load [...paths]               // load dir/file
+:q                             // quit
+:load [...paths]              // load dir/file
 :example                     // load example file
 :ter [bin-name]             // open termial
 :setPath [name] [path]     // set the path of the permanent

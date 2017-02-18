@@ -1,4 +1,3 @@
-import config from './config'
 import path from 'path'
 import rl from 'readline'
 import fs from 'fs'
@@ -20,7 +19,7 @@ export async function getFile(pluginPaths){
         const parentDir = path.dirname(_path)
         const parentFiles = fs.readdirSync(parentDir)
 
-        if(!(parentFiles.includes(".babelrc")) && !(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth == 1) {
+        if(!(parentFiles.includes(".babelrc")) && !(files.includes(".babelrc")) && depth == 1) {
           copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
         }
       },
@@ -34,7 +33,7 @@ export async function getFile(pluginPaths){
         const parentDir = path.dirname(_path)
         const parentFiles = fs.readdirSync(parentDir)
 
-        if(!(parentFiles.includes(".babelrc")) && !(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth == 1) {
+        if(!(parentFiles.includes(".babelrc")) && !(files.includes(".babelrc")) && depth == 1) {
           copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
         }
       },

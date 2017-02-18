@@ -4,12 +4,11 @@ import {getFile, copyFile} from './utils'
 const rootDir = path.join(process.env.HOME, "./.meido/plugins")
 const rootDirFile = fs.readdirSync(rootDir)
 
-
-if(!(rootDirFile.includes("config.json"))) {
-  copyFile(path.join(__dirname, './config.json'), `${rootDir}/config.json`)
+if(!(rootDirFile.includes(".meidolrc"))) {
+  copyFile(path.join(__dirname, '../.meidolrc'), `${rootDir}/.meidolrc`)
 }
 
-const config = require(`${rootDir}/config`)
+const config = JSON.parse(fs.readFileSync(`${rootDir}/.meidolrc`, 'utf8'))
 
 const pluginPaths = Object.assign(config.pluginPaths, {
   base: path.join(__dirname, config.pluginPaths.base)
@@ -105,6 +104,7 @@ export default {
     .set({concurrency: 4})
     .run((queue, next) => {
       meido._rootDir = rootDir
+      meido._configPath = `${rootDir}/.meidolrc`
       meido.plugins = new Set()
       meido._pluginPaths = []
       meido.state.pluginPaths = Object.values(pluginPaths)
