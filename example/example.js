@@ -12,11 +12,7 @@ export default {
 
     `,
 
-  start() {
-
-  },
-
-  foo: "bar",
+  start() {},
   hello() {
     return 'world'
   },

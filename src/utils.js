@@ -17,7 +17,10 @@ export async function getFile(pluginPaths){
         files = filterFile(files, file)
       },
       onDir: (files, _path, depth) => {
-        if(!(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth == 1) {
+        const parentDir = path.dirname(_path)
+        const parentFiles = fs.readdirSync(parentDir)
+
+        if(!(parentFiles.includes(".babelrc")) && !(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth == 1) {
           copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
         }
       },
@@ -28,7 +31,10 @@ export async function getFile(pluginPaths){
         files = filterFile(files, file)
       },
       onDir: (files, _path, depth) => {
-        if(!(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth == 1) {
+        const parentDir = path.dirname(_path)
+        const parentFiles = fs.readdirSync(parentDir)
+
+        if(!(parentFiles.includes(".babelrc")) && !(files.includes(".babelrc")) && !(config.pluginPaths[_path]) && depth == 1) {
           copyFile(path.join(__dirname, '../.babelrc'), `${_path}/.babelrc`)
         }
       },

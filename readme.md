@@ -1,6 +1,6 @@
 ## MEIDO -- Single / Multi file debugger
 
-now support: .js .jsx .vue
+now support: .js .jsx .vue ...
 
 ## install
 
@@ -81,14 +81,11 @@ export default {
 
     `,
 
-  start: (meido) => {
-  },
-
-  foo: "bar",
-  hello: () => {
+  start() {},
+  hello() {
     return 'world'
   },
-  add: (meido, ...args) => {
+  add(...args) {
     return args.reduce((a,b) => parseInt(a) + parseInt(b))
   }
 }
@@ -99,10 +96,10 @@ export default {
 ## api
 
 ```js
-help // print help
+help                              // print help
 
 :q                              // quit
-:load [...paths]                // load dir/file
+:load [...paths]               // load dir/file
 :example                     // load example file
 :ter [bin-name]             // open termial
 :setPath [name] [path]     // set the path of the permanent

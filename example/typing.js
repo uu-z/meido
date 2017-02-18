@@ -31,10 +31,10 @@ export default {
 
   },
 
-  // plusplus ::  arr -> num
-  plusplus(...args){
-    arr(args)
-    const number = parseInt(args[0])
+  // plusplus ::  string -> num
+  plusplus(argv){
+    str(argv)
+    const number = parseInt(argv)
     return num(number + 1)
   }
 }
