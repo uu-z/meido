@@ -1,7 +1,14 @@
-import path from 'path'
 import fs from 'fs'
+import path from 'path'
+import mkdirp from 'mkdirp'
 import {getFile, copyFile} from './utils'
+
 const rootDir = path.join(process.env.HOME, "./.meido/plugins")
+
+if(!fs.existsSync(rootDir)) {
+  mkdirp.sync(rootDir)
+}
+
 const rootDirFile = fs.readdirSync(rootDir)
 
 if(!(rootDirFile.includes(".meidolrc"))) {
@@ -11,7 +18,8 @@ if(!(rootDirFile.includes(".meidolrc"))) {
 const config = JSON.parse(fs.readFileSync(`${rootDir}/.meidolrc`, 'utf8'))
 
 const pluginPaths = Object.assign(config.pluginPaths, {
-  base: path.join(__dirname, config.pluginPaths.base)
+  base: path.join(__dirname, config.pluginPaths.base),
+  global: rootDir
 })
 
 export default {
