@@ -108,4 +108,4 @@ help                             // print help
 
 
 ## demo
-![meido](./meido.gif)
+![meido](./demo.gif)
