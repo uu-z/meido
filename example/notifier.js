@@ -2,6 +2,7 @@ import notifier from 'node-notifier'
 
 export default {
   name: "notifier",
+  completions: [":notify"],
   
   start() {
     this.log("debug", 'notifier start>>>>>')
@@ -27,11 +28,12 @@ export default {
             .on('click', data.onClick)
       }
     })
-  },
-  notify(...args) {
-    this.state.notify = {
-      title: args[0],
-      message: args[1]
+
+    this.notify = (...args) =>  {
+      this.state.notify = {
+        title: args[0],
+        message: args[1]
+      }
     }
   }
 }

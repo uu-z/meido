@@ -5,9 +5,7 @@ export default {
   name: "test",
 
   start() {
-
-  },
-  hello() {
-    return 'hello react'
+    // this.react = React
+    // this.reactDom = ReactDOM
   }
 }

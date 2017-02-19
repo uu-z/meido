@@ -62,15 +62,21 @@ export default {
               try {
                 console.log(${command}.call( meido, ...args))
               } catch (err) {
-
-                console.log(meido.${command}.call(meido, ...args))
-
+                try {
+                  console.log(meido.${command}.call(meido, ...args))
+                } catch (error) {
+                  console.log(meido.plugins.${command}.call(meido, ...args))
+                }
               }
             } else if(commandType == "object") {
               try {
                 console.log(${command})
               } catch (err) {
-                console.log(meido.${command})
+                try {
+                  console.log(meido.${command})
+                } catch (error) {
+                  console.log(meido.plugins.${command})
+                }
               }
             } 
             `)(meido, commandType, args)

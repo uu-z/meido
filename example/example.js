@@ -1,13 +1,17 @@
 export default {
   name: "example",
+  completions: [":hello"],
   help:`
     Command:
 
-      :js.example.hello          example
+      :hello         
+      :example.hello
 
   `,
   start() {
-    
+    this.hello = () => {
+      return 'world'
+    }
   },
   hello() {
     return 'world'

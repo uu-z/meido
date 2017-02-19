@@ -1,10 +1,12 @@
+import fs from 'fs'
 import path from 'path'
 import rl from 'readline'
-import fs from 'fs'
+const compiler = require('vue-template-compiler')
 
 export async function getFile(pluginPaths){
 
   let files = {
+    plugins: {},
     js:  [],
     jsx: [],
     vue: []
@@ -47,13 +49,20 @@ const isJs = /\.js$/
 const isJsx = /\.jsx$/
 const isVue = /\.vue$/
 
-export function filterFile (files, file) {
-  if(isJs.test(file)) {
-    files.js.push(require(file).default)
-  } else if(isJsx.test(file)) {
-    files.jsx.push(require(file).default)
-  } else if(isVue.test(file)) {
-    files.vue.push(require(file).default)
+export function filterFile (files, fileName) {
+  if(isJs.test(fileName)) {
+    const file = require(fileName).default
+    if(file.name) {
+      files.plugins[file.name] = file
+    } else {
+      files.js.push(file)      
+    }
+  } else if(isJsx.test(fileName)) {
+    files.jsx.push(require(fileName).default)
+  } else if(isVue.test(fileName)) {
+    let file = fs.readFileSync(fileName,'utf8')
+    file = compiler.parseComponent(file, { pad: true })
+    files.vue.push(file)
   }
   return files
 }
