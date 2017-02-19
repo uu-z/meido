@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import rl from 'readline'
-const compiler = require('vue-template-compiler')
 
 export async function getFile(pluginPaths){
 
@@ -48,7 +47,7 @@ const isJs = /\.js$/
 export function filterFile (files, fileName) {
   if(isJs.test(fileName)) {
     const file = require(fileName).default
-    if(file.name) {
+    if(file && file.name) {
       files.plugins[file.name] = file
     } else {
       files.js.push(file)      

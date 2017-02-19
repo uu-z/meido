@@ -4,11 +4,12 @@ export default {
 
   start() {
     let meido = this
+    let rl
 
     meido.log('debug', 'cli start>>>>>')
     meido
       .on('cli:start', () => {
-        let rl = readline.createInterface({
+        rl = readline.createInterface({
           input: process.stdin, 
           output: process.stdout,
           prompt: 'meido> ',
@@ -90,6 +91,10 @@ export default {
         }).on('close', () => {
           meido.emit('cli:close')
         })
+      }).observer('log', () => {
+        if(rl) {
+          rl.prompt()
+        }
       })
   }
 }

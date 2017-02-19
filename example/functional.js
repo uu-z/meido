@@ -23,6 +23,7 @@ export default {
   name: "functional",
   completions: [":add", ":random"],
   start() {
+    this.log("debug", 'functional start>>>>>')
 
     this.random = () => {
       return Math.random()
