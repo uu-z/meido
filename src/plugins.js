@@ -33,24 +33,6 @@ export default {
         const {plugins} = files
 
         Object.assign(this, files)
-        // for (let key of Object.keys(plugins)) {
-
-          // meido[key] = meido[key] ? meido[key] : {}
-          // let plugins = plugins[key]
-          // meido.plugins[plugin.name] = plugin
-
-          // if(plugin) {
-          //   for(let plugin of arr) {
-          //     if(!plugin.name) {
-          //       throw new Error(`plugins must have name : ${plugin} `)
-          //     }
-
-          //     meido[key][plugin.name] = plugin
-          //   }
-          // }
-
-          // meido.plugins.add(key)
-        // }
         
         meido.state.isPluginMount = true
       })
@@ -109,30 +91,6 @@ export default {
             }
           })
         }
-        // for(let prefix of meido.plugins) {
-
-        //   let plugins = meido[prefix]
-
-        //   for(let pluginName of Object.keys(plugins)) {
-        //     const plugin = plugins[pluginName]
-
-        //     plugin.start && plugin.start.call(meido)
-
-        //     Object.keys(plugin).forEach(key => {
-
-        //       if(key !== "start" && key !== "name") {
-        //         if(typeof plugin[key] === 'function') {
-        //           meido.options.completions.push(`:${prefix}.${plugin.name}.${key}`)              
-        //         } else if(key === 'completions'){
-        //           meido.options.completions = meido.options.completions.concat(plugin[key])
-        //         }
-        //         else {
-        //           meido.options.completions.push(`${prefix}.${plugin.name}.${key}`)
-        //         }
-        //       }
-        //     })
-        //   }
-        // }
       }
     })
 
@@ -141,7 +99,6 @@ export default {
     .run((queue, next) => {
       meido._rootDir = rootDir
       meido._configPath = `${rootDir}/.meidolrc`
-      // meido.plugins = new Set()
       meido._pluginPaths = []
       meido.state.pluginPaths = Object.values(pluginPaths)
       next()

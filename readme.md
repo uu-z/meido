@@ -1,6 +1,5 @@
 ## MEIDO -- Single / Multi file debugger
 
-now support: .js .jsx .vue ...
 
 ## install
 
@@ -21,11 +20,11 @@ $ meido
 
 :example  // load example file
 
-:js.notifier.notify foo bar
-
-:js.example.add 100 200 300 400 500
+:hello
 
 :add :random 1 2 3
+
+:notify foo bar
 
 :ter meido // open a new terminal with meido
 
@@ -71,24 +70,21 @@ meido> :load {{ you-dir }}
 
 export default {
   name: "example",
+  completions: [":hello"],
   help:`
-    Used to example
+    Command:
 
-    Function:
+      :hello         
+      :example.hello
 
-      js.example.foo             example
-
-      :js.example.hello          example
-      :js.example.add [...args]  example   
-
-    `,
-
-  start() {},
+  `,
+  start() {
+    this.hello = () => {
+      return 'world'
+    }
+  },
   hello() {
     return 'world'
-  },
-  add(...args) {
-    return args.reduce((a,b) => parseInt(a) + parseInt(b))
   }
 }
 

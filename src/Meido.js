@@ -28,9 +28,6 @@ export default class Meido {
           .run(async (queue, next) => {
 
             component.start && await component.start.call(this)
-            
-            // this[component.name]["help"] = component.help
-            // this[component.name]["name"] = component.name
              
             Object.keys(component).forEach(key => {
               if(key !== "start" && key !== "name") {

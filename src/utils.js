@@ -7,9 +7,7 @@ export async function getFile(pluginPaths){
 
   let files = {
     plugins: {},
-    js:  [],
-    jsx: [],
-    vue: []
+    js:  []
   }
 
   if(!(Array.isArray(pluginPaths))) {
@@ -46,8 +44,6 @@ export async function getFile(pluginPaths){
 }
 
 const isJs = /\.js$/
-const isJsx = /\.jsx$/
-const isVue = /\.vue$/
 
 export function filterFile (files, fileName) {
   if(isJs.test(fileName)) {
@@ -57,12 +53,6 @@ export function filterFile (files, fileName) {
     } else {
       files.js.push(file)      
     }
-  } else if(isJsx.test(fileName)) {
-    files.jsx.push(require(fileName).default)
-  } else if(isVue.test(fileName)) {
-    let file = fs.readFileSync(fileName,'utf8')
-    file = compiler.parseComponent(file, { pad: true })
-    files.vue.push(file)
   }
   return files
 }
