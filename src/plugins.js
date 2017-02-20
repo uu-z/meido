@@ -40,7 +40,7 @@ export default {
 
           meido.Message.on(name, fn)
 
-          meido.state = new Proxy({},{
+          meido.state = new Proxy(meido._state, {
             get(target, key) {
               if(key === 'all') {
                 return target
