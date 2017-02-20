@@ -17,6 +17,7 @@ export default class Meido {
 
     this.options = Object.assign(baseOptions, options)
     this.state = {}
+    this.observed = {}
     this.init()    
   }
 

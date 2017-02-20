@@ -30,7 +30,7 @@ export default {
     })
 
     this.notify = (...args) =>  {
-      this.state.notify = {
+      this.observed.notify = {
         title: args[0],
         message: args[1]
       }

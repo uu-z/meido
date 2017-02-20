@@ -34,19 +34,26 @@ export default {
 
         Object.assign(this, files)
         
-        meido.state.isPluginMount = true
+        meido.observed.isPluginMount = true
       })
       .on('message:observer', (name, fn) => {
+
           meido.Message.on(name, fn)
-          
-          if(!meido.state[name]){
-            Object.defineProperty(meido.state, name, {
+
+          if(!meido.observed[name]){
+            Object.defineProperty(meido.observed, name, {
               get: function() {
-                return meido.val
+                return meido.state[name]
               },
               set: function(val) {
-                meido.val = val
+                
+                meido.state[name] = val
                 meido.Message.emit(name, val)
+                
+                if(meido.Message.messages["_all"]) {
+                 meido.Message.emit("_all", meido.state)
+                }
+                return meido.state[name]
               },
               enumerable: true,
               configurable: true
@@ -100,7 +107,7 @@ export default {
       meido._rootDir = rootDir
       meido._configPath = `${rootDir}/.meidolrc`
       meido._pluginPaths = []
-      meido.state.pluginPaths = Object.values(pluginPaths)
+      meido.observed.pluginPaths = Object.values(pluginPaths)
       next()
     })
   }

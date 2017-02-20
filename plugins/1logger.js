@@ -10,5 +10,13 @@ export default {
     this.observer('log', (log, level = "debug") => {
       this.log(level, log)
     })
+
+
+    // console.log = (...args) => {
+    //   this.log('info', ...args)
+    //   if(this.cli) {
+    //     this.cli.prompt()
+    //   }
+    // }
   }
 }

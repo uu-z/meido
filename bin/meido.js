@@ -8,6 +8,6 @@ const meido = new Meido()
 
 meido.on('start', () => {
   if(argv.length > 0) {
-    meido.state.pluginPaths = argv
+    meido.observed.pluginPaths = argv
   }
 })

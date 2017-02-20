@@ -8,24 +8,38 @@ const options = {
 
 export default {
   name: "client",
-  star() {
+  completions: [":socket_client"],
+  start() {
     this.log("debug", 'socker-client start>>>>>')
 
-    const client = io.connect(url, options)
+    this["socket_client"] = () => {
+      let client = io.connect(url, options)
+      client.on('connect', () => {
 
-    client.on('status:connect', () => {
+      })
 
-      client.emit('observer',["test1","test2","test3"])
+      // observer
+      client.emit('observer',{
+        fields:["test1"]
+      })
+      client.on("observer:test1", state => {
+        console.log(state)
+      })
 
-      client.on("observer:test1", test1 => {
-        console.log(test1)
+      //listen
+      client.emit("listen",{
+        fields:["test1"],
+        freq: 5000
       })
-      client.on("observer:test2", test2 => {
-        console.log(test2)
+
+      client.on("listen", state => {
+        console.log(state)
       })
-      client.on("observer:test3", test3 => {
-        console.log(test3)
+
+      //call
+      client.emit('call', {
+        command: "observed.test1 = 200"
       })
-    })
+    }
   }
 }
