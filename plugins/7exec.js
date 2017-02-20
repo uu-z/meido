@@ -3,10 +3,10 @@ export default {
   start() {
     let meido = this
 
-    meido.observer("newline", line => {
-      const newline = line.length > 0 ? line.split(' ') : []
+    meido.observer("newLine", line => {
+      const newLine = line.length > 0 ? line.split(' ') : []
 
-      let [command, ...args] = newline
+      let [command, ...args] = newLine
       let commandType = 'object'
 
       if(command && command.match(/:\w+/)) {
@@ -27,7 +27,7 @@ export default {
       })
 
       try {
-        newline.length > 0 && new Function('meido', 'commandType', 'args', `
+        newLine.length > 0 && new Function('meido', 'commandType', 'args', `
         if(commandType == "function") {
           
           if(args.length > 0) {

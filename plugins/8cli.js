@@ -23,7 +23,7 @@ export default {
 
         rl.on('line', line => {
           
-          meido.observed.newline = line
+          meido.state.newLine = line
 
         }).on('close', () => {
           meido.emit('cli:close')

@@ -28,7 +28,7 @@ export default {
 
       //listen
       client.emit("listen",{
-        fields:["test1"],
+        fields:["all"],
         freq: 5000
       })
 
@@ -38,7 +38,7 @@ export default {
 
       //call
       client.emit('call', {
-        command: "observed.test1 = 200"
+        command: "state.test1 = 200"
       })
     }
   }

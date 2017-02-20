@@ -17,7 +17,6 @@ export default class Meido {
 
     this.options = Object.assign(baseOptions, options)
     this.state = {}
-    this.observed = {}
     this.init()    
   }
 
@@ -63,7 +62,7 @@ export default class Meido {
   }
 
   observer(name, fn) {
-    this.Message.observer(name, fn)
+    this.emit("observer", name, fn)
     return this
   }
 }

@@ -1,13 +1,15 @@
 #!/usr/bin/env babel-node
 
 import Meido from '../src/meido'
+import path from 'path'
 
-let argv = process.argv.slice(2)
+let args = process.argv.slice(2)
 
 const meido = new Meido()
 
 meido.on('start', () => {
-  if(argv.length > 0) {
-    meido.observed.pluginPaths = argv
+  if(args.length > 0) {
+    args = args.map(_path => path.resolve(_path))
+    meido.state._pluginPaths = args
   }
 })

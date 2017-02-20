@@ -17,29 +17,34 @@ export default {
 
         socket.on("observer", obj => {
           const fields = obj.fields
+          let data
 
           if(fields) {
             fields.forEach(field => {
               this.observer(field, data => {
-                socket.emit(`observer:${field}`, data)
+
+                socket.emit(`observer`, {
+                  [field]: data
+                })
               })
-              socket.emit(`observer:${field}`, this.observed[field])
+              socket.emit(`observer`, {
+               [field]: this.state[field]
+              })
             })
           }
         })
 
         socket.on("call", data => {
-          this.observed.newline = data.command
+          this.state.newLine = data.command
         })
 
         socket.on('listen', obj => {
           const fields = obj.fields
-          const freq = obj.freq > 1000 ? Object.freq : 1000
+          const freq = obj.freq > 1000 ? obj.freq : 1000
           let time = Date.now()
 
           setInterval(() => {
             let data = {}
-
             fields.forEach(field => {
               data[field] = this.state[field]
             })

@@ -46,13 +46,14 @@ export default {
       exec(`open -a /Applications/Utilities/Terminal.app /usr/local/bin/${command}`)
     },
     meido.load = (...args) => {
-      meido.observed.pluginPaths = args
+      args = args.map(_path => path.resolve(_path))
+      meido.state.pluginPaths = args
     },
     meido.reload = () => {
       meido.ter(meido, 'meido')
     }
     meido.example = () => {
-      meido.observed.pluginPaths = examplePath
+      meido.state.pluginPaths = examplePath
     },
     meido.setPath = (name, path) => {
       if(!name || !path) {
