@@ -3,7 +3,8 @@ import path from "path";
 import mkdirp from "mkdirp";
 import { getFile, copyFile } from "./utils";
 
-const rootDir = path.join(process.env.HOMEPATH, "./.meido/plugins");
+let homeDir = process.env.HOME || process.env.HOMEPATH
+const rootDir = path.join(homeDir, "./.meido/plugins");
 
 if (!fs.existsSync(rootDir)) {
   mkdirp.sync(rootDir);

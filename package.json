@@ -1,6 +1,6 @@
 {
   "name": "meido",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "bin": "bin/meido.js",
   "scripts": {
     "start": "babel-node app.js",
@@ -13,10 +13,10 @@
     "babel-cli": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.1.8",
-    "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3",
     "node-notifier": "^5.0.2",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3"
   },
   "dependencies": {
     "meidos": "^0.1.1",
