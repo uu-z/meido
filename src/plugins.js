@@ -29,13 +29,6 @@ export default {
     let meido = this;
 
     meido
-      .on("queue:getFile", files => {
-        const { plugins } = files;
-
-        Object.assign(this, files);
-
-        meido.state.isPluginMount = true;
-      })
       .on("observer", (name, fn) => {
         meido.Message.on(name, fn);
 
@@ -69,7 +62,11 @@ export default {
           meido._pluginPaths = [...meido._pluginPaths, ...pluginPaths];
         }
 
-        meido.emit("queue:getFile", files);
+        const { plugins } = files;
+
+        Object.assign(this, files);
+
+        meido.state.isPluginMount = true;
       })
       .observer("isPluginMount", isPluginMount => {
         if (isPluginMount === true) {
