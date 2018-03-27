@@ -3,7 +3,7 @@ import path from "path";
 import mkdirp from "mkdirp";
 import { getFile, copyFile } from "./utils";
 
-let homeDir = process.env.HOME || process.env.HOMEPATH
+let homeDir = process.env.HOME || process.env.HOMEPATH;
 const rootDir = path.join(homeDir, "./.meido/plugins");
 
 if (!fs.existsSync(rootDir)) {
@@ -95,12 +95,9 @@ export default {
         }
       });
 
-    meido.Queue.set({ concurrency: 4 }).run((queue, next) => {
-      meido._rootDir = rootDir;
-      meido._configPath = `${rootDir}/.meidolrc`;
-      meido._pluginPaths = [];
-      meido.state.pluginPaths = Object.values(pluginPaths);
-      next();
-    });
+    meido._rootDir = rootDir;
+    meido._configPath = `${rootDir}/.meidolrc`;
+    meido._pluginPaths = [];
+    meido.state.pluginPaths = Object.values(pluginPaths);
   }
 };
