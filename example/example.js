@@ -1,7 +1,7 @@
 export default {
   name: "example",
   completions: [":hello"],
-  help:`
+  help: `
     Command:
 
       :hello         
@@ -10,10 +10,10 @@ export default {
   `,
   start() {
     this.hello = () => {
-      return 'world'
-    }
+      return "world";
+    };
   },
   hello() {
-    return 'world'
+    return "world";
   }
-}
+};
